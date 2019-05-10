@@ -1,0 +1,2 @@
+# Podkriticna ravnovesja
+
