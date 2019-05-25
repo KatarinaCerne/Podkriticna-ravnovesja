@@ -49,7 +49,7 @@ V tej seminarski nalogi si ogledamo definicijo osnovnega reprodukcijskega števi
 ravnovesnega stanja brez bolezni DFE, opišemo pogoje za obstoj podkritičnih stanj
 in teorijo uporabimo na nekaj primerih.
 
-\section{Osnovno reprodukcijsko število v razdrobljenih epidemioloških problemih}
+\section{Osnovno reprodukcijsko število v razdrobljenih epidemioloških problemih} \label{r0}
 
 Najprej si oglejmo splošno strukturo modela populacije, s katerim bomo delali.
 Imejmo heterogeno populacijo, ki jo lahko razdelimo v \(n\) homogenih razredov.
@@ -188,8 +188,28 @@ ravnovesnega stanja DFE govori naslednji izrek.
 
 \section{Podkritična in nadkritična ravnovesna stanja}
 
-Videli smo, da 
+Videli smo, da je ravnovesje brez okužbe LAS če je \(\R_0<1\) in nestabilno, če 
+je \(\R_0>1\). Težava pa se pojavi v točki bifurkacije, torej če \(\R_0=1\), oziroma
+v njeni okolici.
+
+Za lažjo obravnavo dogajanja v okolici točke bifurkacije vpeljimo bifurkacijski parameter
+\(\mu\), za katerega naj velja, da je \(\R_0<1\) za \(\mu<0\) in \(\R_0>1\) za \(\mu>0\).
+
+Opazujemo sistem 
+\[\dot{x}=f(x,\mu),\]
+kjer je \(f\) kot v poglavju \ref{r0} in vsaj dvakrat zvezno odvedljiva v \(x\) in \(\mu\).
+Naj ima sistem DFE \(x_0\). Lokalna stabilnost ravnovesja se spremeni v točki \((x_0,0)\), kjer 
+imamo torej bifurkacijo. V okolici točke bifurkacije se nam lahko pojavijo endemična 
+ravnovesja, ki so lahko superkritična ali subkritična. Superkritična ravnovesja so 
+netrivialna \todo{stabilna?} ravnovesja v okolici točke bifurkacije pri \(\R_0>1\),
+subkritična pa pri \(\R_0<1\). Slednja lahko pomembno vplivajo na dinamiko v 
+epidemioloških modelih, saj lahko že pri majhnih perturbacijah okrog DFE preidemo
+v nestabilno ravnovesno stanje in se zato kljub temu, da je \(\R_0<1\), okužba lahko 
+razširi v populaciji.
+
+Obstoj 
 
 \section{Primeri}
+
 
 \end{document}
