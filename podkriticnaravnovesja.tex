@@ -1,0 +1,195 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{eurosym}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+
+
+\newcommand{\todo}[1]{{\color{red}{#1}}}
+\newcommand{\R}{\mathcal R}
+\newcommand{\F}{\mathcal F}
+\newcommand{\V}{\mathcal V}
+
+\newtheorem{lema}{Lema}
+\newtheorem{izrek}{Izrek}
+\newtheorem{opomba}{Opomba}
+
+\begin{document}
+\title{Osnovna reprodukcijska števila in podkritična endemična ravnovesna stanja v epidemioloških problemih}
+\author{Katarina Černe}
+\maketitle
+
+\section{Uvod}
+
+Pri veliko epidemioloških modelih je eno izmed ravnovesnih stanj ravnovesje brez okužbe (DFE). 
+Pri analizi teh modelov nam pomembne informacije nudi t.i. osnovno reprodukcijsko 
+število \(\R_0\). Če je \(\R_0<1\), je DFE lokalno asimptotsko stabilno, kar pomeni,
+da se bolezen ne bo razširila v populaciji. Če pa je \(\R_0>1\), pa je DFE nestabilno
+in razširjenje bolezni je možno.
+
+Vseeno pa izpolnjen pogoj \(\R_0<1\) ne zagotavlja nujno, da lahko bolezen izkoreninimo.
+Kljub temu, da je pri \(\R_0<1\) DFE lokalno asimptotsko stabilno, lahko v okolici
+DFE obstajajo nestabilna podkritična endemična ravnovesna stanja, ki povzročajo, da 
+bolezen ostaja prisotna v populaciji. \todo{kaj je res s tem}
+
+V tej seminarski nalogi si ogledamo definicijo osnovnega reprodukcijskega števila 
+\(\R_0\) za razdrobljene modele, pokažemo, da \(\R_0\) res nudi podatke o stabilnosti
+ravnovesnega stanja brez bolezni DFE, opišemo pogoje za obstoj podkritičnih stanj
+in teorijo uporabimo na nekaj primerih.
+
+\section{Osnovno reprodukcijsko število v razdrobljenih epidemioloških problemih}
+
+Najprej si oglejmo splošno strukturo modela populacije, s katerim bomo delali.
+Imejmo heterogeno populacijo, ki jo lahko razdelimo v \(n\) homogenih razredov.
+Naj vektor \(x=(x_1,x_2,\ldots,x_n)^T\) označuje velikost populacije v vsakem 
+izmed \(n\) razredov. Zaradi biološke smiselnosti mora seveda veljati \(x_i\geq 0\),
+\(i=1,2,\ldots,n\). Razredi se med seboj ločijo na okužene in neokužene. 
+Naj bo prvih \(m\) razredov okuženih, preostali pa neokuženi. Vpeljimo še oznako
+\(X_s=\{x\geq 0 | x_i=0, i=1,\ldots, m\}\), to je množica vseh stanj, v katerih
+ni bolezni. \todo{nove okužbe}
+
+Sedaj z \(\F_i(x)\) označimo stopnjo pojavitve novih okužb v razredu \(i\). 
+Z \(\V^+_i(x)\) označimo stopnjo prehoda v \(i\)-ti razred, ki se ne zgodijo zaradi 
+novih okužb temveč iz drugih razlogov, \(\V^-_i\) pa naj označuje stopnjo prehoda
+iz \(i\)-tega razreda. 
+
+Model prenosa okužbe lahko zapišemo na naslednji način:
+\begin{equation} \label{eq1}
+\dot{x}=f_i(x)=\F_i - \V_i,
+\end{equation}
+kjer je \(\V_i=\V_i^- - \V_i^+\) in \(i=1,\ldots,n\). 
+Pisali bomo tudi \(\F=(\F_1,\F_2,\ldots,\F_n)\) in \(\V_1,\V_2,\ldots,\V_n\).
+
+Dobljeni sistem lineariziramo:
+\begin{equation} \label{eq2}
+\dot{x}=Df(x_0)(x-x_0),
+\end{equation}
+kjer z \(x_0\) označimo DFE, z \(Df(x_0)\) pa Jacobijevo matriko preslikave 
+\(f=(f_i, f_2, \ldots f_n)\).
+Za funkcije \(f_i\)
+%\(\F_i\), \(\V_i^+\) in \(\V_i^-\) 
+morajo veljati še naslednje predpostavke:
+
+\begin{itemize}
+    \item[(A1)] \(x\geq 0 \Rightarrow \F_i\textrm{, }\V_i^+\textrm{, }\V_i^- \geq 0\)
+    \item[(A2)] \(x_i=0 \Rightarrow \V_i^- =0\), kar pomeni, da prehodi iz praznega 
+    razreda niso možni. \todo{v posebnem} 
+    \item[(A3)] \(\F_i=0\) za \(i>m\), kar pomeni, da nimamo okužb ve neokuženih razredih - 
+    ko se posameznik okuži, preide v okužen razred 
+    \item[(A4)] \(x\in X_s \Rightarrow \F_i(x)=0\) in \(\V_i^+(x)=0\) za \(i=1,\ldots,m\)
+    To pomeni, da okužba ne pride "od zunaj" temveč samo iz razredov znotraj populacije. 
+    \item[(A5)] \(\F(x)=0 \Rightarrow\) vse lastne vrednosti matrike \(Df(x_0)\) imajo 
+    negativne realne dele, torej, omejimo se na sisteme, kjer je DFE stabilno, če nimamo novih okužb.    
+\end{itemize}
+
+Za lažje delo s prej definiranimi funkcijami si oglejmo naslednjo lemo.
+
+\begin{lema} \label{lema1}
+    Naj bo \(x_0\) DFE sistema \ref{eq1} in naj funkcije \(f_i\) zadoščajo predpostavlkam
+    (A1)-(A5). Potem sta Jacobijevi matriki za \(\F\) in \(\V\) oblike
+    \begin{align*}
+        D\F(x_0)= 
+        \begin{bmatrix}
+        F & 0 \\
+        0 & 0 \\
+        \end{bmatrix},\textrm{ }
+        D\V(x_0)=
+        \begin{bmatrix}
+        V & 0 \\
+        J_3 & J_4 \\
+        \end{bmatrix},
+    \end{align*}
+    kjer sta \(F\) in \(V\) \(m\times m\) matriki, definirani kot
+    \begin{align*}
+        \big[\frac{\partial \F_i}{\partial x_j}(x_0)\big]_{i,j=1,\ldots m},\textrm{ }
+        \big[\frac{\partial \V_i}{\partial x_j}(x_0)\big]_{i,j=1,\ldots m}.
+    \end{align*}
+    Velja še, da je \(F\) nenegativna, \(V\) je nesingularna M-matrika in vse lastne
+    vrednosti matrike \(J_4\) imajo pozitivne realne dele.
+\end{lema}
+
+\begin{opomba}
+    Pravimo, da je neka matrika M-matrika, če je Z-matrika in imajo njene lastne
+    vrednosti nenegativne realne dele. Matriko imenujemo Z-matrika, če so vsi njeni
+    izvendiagonalni elementi nepozitivni.
+\end{opomba}
+
+\todo{dokaz}
+
+Sedaj, ko imamo definiran model populacije, lahko definiramo osnovno reprodukcijsko
+število. Osnovno reprodukcijsko število \(\R_0\) v epidemiološkem modelu interpretiramo
+kot pričakovano število novih okužb, ki jih povzroči okuženi osebek v sicer popolnoma
+dovzetni populaciji. Če je \(R_0<1\), torej v povprečju okuženi osebek v času svoje
+okuženosti ustvari manj kot eno novo okužbo in okužba se zato ne bo razširila. Podobno, če je 
+\(R_0>1\), v povprečju okuženi osebek ustvari več kot enega novega okuženega, kar pomeni,
+da se okužba lahko razširi po populaciji. 
+
+Matematično lahko v primeru, da imamo samo en razred okuženih, \(\R_0\) definiramo
+kot produkt med stopnjo okužbe in pričakovanim časom, ki ga okuženi osebek preživi 
+v okuženem razredu. V modelu z več okuženimi razredi pa \(\R_0\) izpeljemo na naslednji način.
+
+Opazovati moramo, kaj se dogaja z okuženim osebkom, ki ga uvedemo v populacijo brez 
+bolezni, torej v populacijo v DFE \(x_0\). Ker v začetku še nimamo okužbe, je 
+\(D\F(x_0)\) ničeln, torej opazujemo enačbo
+\begin{equation}\label{eq3}
+    \dot{x}=-D\V(x_0)(x-x_0)
+\end{equation}
+Sedaj s \(\Psi_i(0)\) označimo število okuženih, ki jih v začetku uvedemo v \(i\)-ti 
+razred. Naj bo \(\Psi(t)=(\Psi_1(t),\ldots,\Psi_m(t))^T\) število okuženih ob času \(t\). 
+Po lemi \ref{lema1} se da zapisati \(D\V\) kot 
+\(
+\begin{bmatrix}
+    V & 0 \\
+    J_3 & J_4 \\
+\end{bmatrix}
+\),
+kjer je \(V\) velikosti \(m \times m\), vektor \(\Psi\) pa v bistvu
+predstavlja prvih \(m\) komponent vektorja \(x\), ki reši enačbo \ref{eq3}. Torej 
+\(\Psi(t)\) reši enačbo \(\Psi'(t)=-V\Psi(t)\). Ta enačba ima enolično rešitev 
+\(\Psi(t)=\exp{-Vt}\Psi(0)\).
+
+Pričakovano število okužb, ki jih ustvarijo okuženi posamezniki v tem primeru,
+se izračuna kot \(\int_0^\infty F\Psi(t)dt = \int_0^\infty F\exp{-Vt}\Psi(0)dt = FV^{-1}\Psi(0)\).
+Po lemi \ref{lema1} je matrika \(V\) nesingularna, torej \(V^{-1}\) obstaja. 
+
+Sedaj si oglejmo interpretacijo matrike \(FV^{-1}\). Element na \((i,j)\)-tem mestu
+v matriki \(F\) predstavlja stopnjo, s katero okuženi osebki iz razreda \(j\)
+ustvarijo nove okužbe v razredu \(i\). Element na \((j,k)\)-tem mestu v matriki \(V^{-1}\)
+predstavlja pričakovani čas, ki ga nek okuženi posameznik, ki je začel v \(k\)-tem razredu, 
+preživi v \(j\)-tem razredu v času svojega življenja. Torej je \((i,k)\)-ti element 
+matrike \(FV^{-1}\) pričakovano število novih okužb, ki jih okuženi posameznik, ki 
+smo ga na začetki uvedli v \(k\)-ti razred, povzroči v \(i\)-tem razredu.
+
+Osnovno reprodukcijsko število definiramo kot spektralni radij matrike \(FV^{-1}\):
+\[\R_0=\rho(FV^{-1}).\]
+
+O povezavi med osnovnim reprodukcijskim številom in lokalno asimptotsko stabilnostjo 
+ravnovesnega stanja DFE govori naslednji izrek.
+
+\begin{izrek}
+    Imejmo model prenosa bolezni kot v \ref{eq1}, kjer naj za funkcijo \(f\) veljajo
+    predpostavke (A1)-(A5). Če je ravnovesno stanje \(x_0\) DFE, potem je \(x_0\) LAS, 
+    če velja \(\R_0<1\), in nestabilno, če je \(\R_0>1\), kjer je \(\R_0=\rho(FV^{-1})\).
+\end{izrek}
+
+\todo{dokaz}
+
+\section{Podkritična in nadkritična ravnovesna stanja}
+
+Videli smo, da 
+
+\section{Primeri}
+
+\end{document}
