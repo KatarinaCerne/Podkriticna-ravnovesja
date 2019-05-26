@@ -178,7 +178,7 @@ Osnovno reprodukcijsko število definiramo kot spektralni radij matrike \(FV^{-1
 O povezavi med osnovnim reprodukcijskim številom in lokalno asimptotsko stabilnostjo 
 ravnovesnega stanja DFE govori naslednji izrek.
 
-\begin{izrek}
+\begin{izrek}\label{izrek1}
     Imejmo model prenosa bolezni kot v \ref{eq1}, kjer naj za funkcijo \(f\) veljajo
     predpostavke (A1)-(A5). Če je ravnovesno stanje \(x_0\) DFE, potem je \(x_0\) LAS, 
     če velja \(\R_0<1\), in nestabilno, če je \(\R_0>1\), kjer je \(\R_0=\rho(FV^{-1})\).
@@ -196,7 +196,11 @@ Za lažjo obravnavo dogajanja v okolici točke bifurkacije vpeljimo bifurkacijsk
 \(\mu\), za katerega naj velja, da je \(\R_0<1\) za \(\mu<0\) in \(\R_0>1\) za \(\mu>0\).
 
 Opazujemo sistem 
-\[\dot{x}=f(x,\mu),\]
+
+\begin{equation}\label{eq4}
+\dot{x}=f(x,\mu),
+\end{equation}
+
 kjer je \(f\) kot v poglavju \ref{r0} in vsaj dvakrat zvezno odvedljiva v \(x\) in \(\mu\).
 Naj ima sistem DFE \(x_0\). Lokalna stabilnost ravnovesja se spremeni v točki \((x_0,0)\), kjer 
 imamo torej bifurkacijo. V okolici točke bifurkacije se nam lahko pojavijo endemična 
@@ -207,9 +211,206 @@ epidemioloških modelih, saj lahko že pri majhnih perturbacijah okrog DFE preid
 v nestabilno ravnovesno stanje in se zato kljub temu, da je \(\R_0<1\), okužba lahko 
 razširi v populaciji.
 
-Obstoj 
+Obstoj nadkritičnih in podkritičnih ravnovesnih stanj pokažemo s pomočjo teorije 
+centralne mnogoterosti. Centralno mnogoterost \(W^c\) sestavljajo orbite, za katere velja, da na 
+njihovo obnašanje okrog točke ravnovesja ne vpliva niti stabilna mnogoterost \(W^s\), niti nestabilna 
+mnogoterost \(W^u\). Stabilna mnogoterost pripada lastnemu prostoru, ki ga razpenjajo lastni vektorji 
+lastnih vrednosti z negativnim realnim delom, nestabilna mnogoterost pa lastnemu prostoru, razpetemu z 
+lastnimi vektorji, ki pripadajo lastnim vrednostim s pozitivnim realnim delom. Lastnim vrednostim z ničelnim 
+realnim delom pripadajo lastni vektorji, ki razpenjajo prostor, ki mu pripada centralna mnogoterost. 
+
+V nadaljevanju bomo potrebovali izrek o centralni mnogoterosti, ki pravi naslednje:
+%\begin{izrek}
+%    Imejmo nelinearni sistem oblike 
+%    \[\dot{x}=Ax+f(x,y)\]
+%    \[\dot{y}=By+g(x,y)\],
+%    kjer \(f(0,0)=g(0,0)=Df(0,0)=Dg(0,0)=0\), \((x,y)\in \mathbb{R}^c\times \mathbb{R}^s\) 
+%    in \(A\) \(c \times c\) matrika z ničelnimi realnimi deli, \(B\) pa matrika z negativnimi realnimi deli, 
+%    ter \(f\) in \(g\) vsaj dvakrat zvezno odvedljivi. Potem obstaja 
+%    centralna mnogoterost 
+%    \[W^c=\{(x,y)|y=h(x), |x|<\delta, h(0)=0, Dh(0)=0\},\]
+%    za katero velja, da je v \((x,y)=(0,0)\) tangentna na prostor \(E^c\), ki ga razpenjajo lastni vektorji ničelnih lastnih vrednosti. 
+%    Dinamika sistema, omejenega na centralno mnogoterost je podana s sistemom 
+%    \(\dot{u}=Au+f(u,h(u))\) za dovolj majhen \(u\in \mathbb{R}^c\).
+%\end{izrek}
+\begin{izrek}
+    Imejmo nelinearni sistem \(\dot{x}=f(x),\textrm{ }x\in\mathbb{R}^n\), naj bo \(f\) gladka 
+    in \(x=0\) stacionarna točka. Naj ima \(Df(0)\) lastne vrednosti s pozitivnimi, negativnimi in 
+    ničelnimi realnimi deli. Pripadajoči lastni vektorji razpenjajo prostore \(E^s\), \(E^u\) in \(E^c\). 
+    Potem obstajata stabilna mnogoterost \(W^s\), enake dimenzije kot \(E^c\) in tangentna na \(E^c\) v \(x=0\) in nestabilna mnogoterost \(W^u\),
+    enake dimenzije kot \(E^u\) in tangentna nanj v \(x=0\), ter invariantna centralna mnogoterost \(W^c\), 
+    tangentna na \(E^c\) v \(x=0\).{}
+\end{izrek}
+
+Imejmo sedaj matriko \(D_xf(x_0,0)\) (Jacobijeva matrika odvodov po komponentah \(x\)-a). 
+Ker imamo v \((x_0,0)\), bifurkacijo, je \(0\) lastna vrednost te matrike. Naj bo 
+to enostavna lastna vrednost matrike. Naj bosta vektorja \(v\) in \(w\) taka, da je 
+\(vD_xf(x_0,0)=0\) in \(D_xf(x_0,0)u=0\) in da \(vu=1\).
+%Po lemi \ref{lema1} in izreku \ref{izrek1} imajo vse ostale lastne vrednosti negativne realne dele.
+Naj bo 
+\begin{equation}\label{eq5}
+a=\frac{v}{2}D_{xx}f(x_0,0)w^2=\frac{1}{2}\sum_{i,j,k=1}^n v_iw_jw_k\frac{\partial^2f_i}{\partial x_j \partial x_k}(x_0,0)
+\end{equation}
+\[b=vD_{x\mu}f(x_0,0)w=\sum_{i,j=1}^n v_i w_j \frac{\partial^2 f_i}{\partial x_j \partial \mu}(x_0,0).\]
+Izraz za \(a\) je možno zapisati še na drugačen način. Velja naslednje:
+
+\begin{lema}\label{lema2}
+    Naj bo \(f(x,\mu)\) vsaj dvakrat zvezno odvedljiva v 
+    \(x\) in \(\mu\) in naj zanjo veljajo predpostavke (A1)-(A5).
+    Naj bo \(0\) enostavna lastna vrednost \(D_xf(x_0,0)\) in \(v\) in \(w\)
+    vektorja, za katera \(vD_xf(x_0,0)=0\) in \(D_xf(x_0,0)w=0\). 
+    Potem \(v_i\geq 0\) in \(w_i\geq 0\) za \(i=1,\ldots, m\) in 
+    \(v_i=0\) za \(i=m+1,\ldots,n\) ter 
+    \[a=\sum_{i,j,k=1}^m v_i w_j w_k \big(\frac{1}{2}\frac{\partial^2 f_i}{\partial x_j \partial x_k}(x_0,0)+\sum_{l=m+1}^n \alpha_{lk}\frac{\partial^2 f_i}{\partial x_j \partial x_l}(x_0,0)\big),\]
+    kjer \(\alpha_{lk}\) (\(l=m+1,\ldots,n,\textrm{ }k=1,\ldots,m\)) označuje 
+    \((l-m,k)\)-ti element matrike \(-J_4^{-1}J_3\), kjer sta matriki \(J_3\) in \(J_4\)
+    kot v lemi \ref{lema1}.
+\end{lema}
+
+\todo{dokaz:izpusti}
+
+Vrednost \(a\) odloča o značilnostih endemičnih ravnovesij v bližini točke bifurkacije, 
+torej o tem, ali imamo superkritična ali subkritična ravnovesja. 
+
+\begin{izrek}\label{izrek2}
+    Imejmo sistem \ref{eq4}, kjer za \(f\) velja (A1)-(A5). Naj bo \(0\) enostavna
+    lastna vrednost \(D_xf(x_0,0)\). Naj bo \(a\) kot v \label{eq5} in naj velja \(b\neq 0\).
+    Potem obstaja \(\delta >0\), da velja:
+    \begin{itemize}
+        \item če \(a<0\), potem obstajajo lokalno asimptotsko stabilna endemična ravnovesja
+        v bližini \(x_0\) za \(0<\mu <\delta\) (superkritična ravnovesja)
+        \item če \(a>0\), potem obstajajo nestabilna endemična ravnovesja v bližini \(x_0\) 
+        za \(-\delta < \mu < 0\).
+    \end{itemize}
+\end{izrek}
+
+\todo{dokaz}
 
 \section{Primeri}
+\subsection{Model zdravljenja}
 
+Model, s katerim se ukvarjamo v tem podpoglavju, temelji na nekaterih modelih 
+za tuberkulozo. Populacijo razdelimo v štiri razrede: razred dovzetnih \(S\), 
+razred izpostavljenjih \(E\), razred okuženih \(I\) in razred zdravljenih \(T\). 
+Velikost celotne populacije označimo z \(N\), torej je \(S+E+I+T=N\). Razreda \(E\) 
+in \(I\) smatramo kot okužena razreda, preostala dva pa kot neokužena. 
+Model predstavimo z naslednjimi enačbami
+\begin{align*}
+&\dot{E}=\beta_1\frac{SI}{N}+\beta_2\frac{TI}{N}-(d+\nu+r_1)E+pr_2I,\\
+&\dot{I}=\nu E -(d+r_2)I,\\
+&\dot{S}=b(N)-dS-\beta_1\frac{SI}{N},\\
+&\dot{T}=-dT+r_1E+qr_2I-\beta_2\frac{TI}{N}.
+\end{align*}
+Tu je \(\beta_1\frac{I}{N}\) stopnja, s katero dovzetni postanejo izpostavljeni, 
+\(\beta_2\frac{I}{N}\) pa stopnja, s katero zdravljeni postanejo izpostavljeni. 
+Izpostavljeni postanejo okuženi s stopnjo \(\nu\). Stopnja zdravljenja izpostavljenih 
+je \(r_1\), stopnja zdravljenja okuženih pa \(r_2\). Zdravljenje okuženih ni vedno uspešno. 
+S \(q\) označimo delež uspešnih zdravljenj okuženih posameznikov, medtem ko delež \(p=1-q\) 
+okuženih, ki so bili zdravljeni, ne ozdravi, temveč preide nazaj v razred izpostavljenih. 
+Z \(b(N)\) označimo stopnjo rodnosti, \(d\) pa je stopnja smrtnosti za vse razrede. Vsi novorojeni 
+so na začetku dovzetni. 
 
+Analize modela se najprej lotimo tako, da določimo vektorja 
+\(\F\) in \(\V\), torej da določimo, kateri prehodi med razredi so nove okužbe in kateri ne. 
+Prehodov med \(E\) in \(I\) ne razumemo kot nove okužbe. Nova okužba je le ali prehod iz \(S\) v \(E\) 
+ali iz \(T\) v \(E\). Zapišimo torej vektorja \(\F\) in \(\V\):
+\begin{align*}
+    \F= 
+        \begin{bmatrix}
+        \beta_1\frac{SI}{N}+\beta_2\frac{TI}{N}\\
+        0\\
+        0\\
+        0\\
+        \end{bmatrix},\textrm{ }
+        \V= 
+        \begin{bmatrix}
+        (d+\nu+r_1)E-pr_2I \\
+        -\nu E +(d+r_2)I\\
+        -b(N)+dS+\beta_1 \frac{SI}{N}\\
+        dT-r_1E-qr_2I+\beta_2\frac{TI}{N}
+        \end{bmatrix}.
+\end{align*}
+Tu smatramo \(E\) kot prvi razred, \(I\) kot drugi, \(S\) tretji in \(T\) četrti. 
+Ravnovesje brez okužbe (DFE) je tisto, pri katerem je \(E=0\) in \(I=0\). 
+V tem primeru dobimo enačbe 
+\begin{align*}
+    &\dot{E}=0\\
+    &\dot{I}=0\\
+    &\dot{S}=b(N)-dS\\
+    &\dot{T}=-dT.
+\end{align*}
+Sledi, da mora biti v tem ravnovesju \(-dT=0\), torej \(T=0\), in 
+\(b(N)-dS=0\), torej je \(S=S_0\), za katerega velja \(b(S_0)=dS_0\). 
+Dobimo torej ravnovesje DFE \(x_0=(0,0,S_0,0)^T\). 
+Predpostavimo, da je \(S_0=1\). 
+
+Zapišimo še matriki \(F\) in \(V\) iz zapisa v lemi \ref{lema1}. Imamo \(2\) okužena razreda, torej \(m=2\). 
+Torej \(F\) in \(V\) vsebujeta 
+parcialne odvode \(\F_i\) in \(V_i\) po \(E\) in \(I\) evalvirane v ravnovesju \(x_0\). 
+Velja na primer \(\frac{\partial \F_1}{\partial E}|_{x_0}=0\) in 
+\(\frac{\partial \F_1}{\partial I}|_{x_0}=\beta_1\). Podobno naredimo še za ostale komponente \(\F\) in \(\V\) 
+in dobimo 
+\begin{align*}
+    F= 
+    \begin{bmatrix}
+    0 & \beta_q \\
+    0 & 0 \\
+    \end{bmatrix},\textrm{ }
+    V=
+        \begin{bmatrix}
+        d+\nu+r_1 & -pr_2 \\
+        -\nu & d+r_2 \\
+        \end{bmatrix},\textrm{ }
+\end{align*}
+Za izračun \(\R_0\) moramo izračunati še \(V^{-1}\):
+\begin{align*}
+    V^{-1}=\frac{1}{det(V)}
+    \begin{bmatrix}
+    d+r_2 & pr_2 \\
+    \nu & d+\nu+r_1 \\
+    \end{bmatrix}=
+    \frac{1}{(d+\nu+r_1)(d+r_2)-\nu pr_2}
+    \begin{bmatrix}
+        d+r_2 & pr_2 \\
+        \nu & d+\nu+r_1 \\
+    \end{bmatrix}.
+\end{align*}
+
+Sedaj lahko izračunamo \(\R_0=FV^{-1}=\frac{\beta_1\nu}{(d+\nu+r_1)(d+r_2)-\nu pr_2}\) 
+in s tem smo dobili pogoj, ki pove, ali je ravnovesje \(x_0\) LAS ali nestabilno.
+
+Osnovno reprodukcijsko število \(\R_0\) lahko v tem primeru dobimo tudi na nekoliko 
+drugačen način. Poskusimo interpretirati, kaj pomeni element v drugi vrstici in prvem stolpcu 
+matrike \(V^{-1}\) (ta je namreč edini, ki se pri množenju z \(F\) ne bo množil z \(0\)). 
+Ta pomeni pričakovani čas, ki ga osebek iz prvega razreda, torej iz \(E\), preživi v drugem razredu, torej v \(I\). 
+Označimo s \(h_1=\frac{\nu}{d+\nu+r_1}\) delež osebkov iz \(E\), ki preidejo v \(I\), in s 
+\(h_2=\frac{pr_2}{d+r_2}\) delež osebkov iz \(I\), ki preidejo nazaj v \(E\). 
+Delež \(h_1\) osebkov iz \(E\) gre v \(I\) vsaj enkrat, delež \(h_1^2h_2\) gre v \(I\) vsaj dvakrat, 
+delež \(h_1^{k}h_2^{k-1}\) gre v \(I\) vsaj \(k\)-krat. 
+Vsak tak osebek vsakič v \(I\) preživi v povprečju \(\frac{1}{d+r_2}\) časa. Torej je pričakovani čas, ki ga 
+posameznik iz razreda \(E\) preživi v \(I\) enak 
+\[\frac{1}{d+r_2}(h_1+h_1^2h_2+\cdots)=\frac{1}{d+r_2}\frac{h_1}{1-h_1h_2}=\frac{\nu}{(d+\nu+r_1)(d+r_2)-\nu pr_2}.\]
+Če to pomnožimo z \(\beta_1\), dobimo ravno \(\R_0\), kakršnega smo izpeljali zgoraj.
+
+Oglejmo si še, kaj se v tem biološkem modelu dogaja okrog točke bifurkacije. 
+Videti se da, da je pri \(\R_0=1\) \(0\) res enostavna lastna vrednost matrike 
+\(D_xf(x_0,0)\), torej lahko uporabimo izrek \ref{izrek2}. Za izračun \(a\) potrebujemo 
+druge odvode \(f_i\) v \(E\) in \(I\) v ravnovesju. Opazimo lahko, da so edini neničelni drugi odvodi
+\(\frac{\partial^2f_1}{\partial E \partial I}=-\beta_1\), 
+\(\frac{\partial^2f_1}{\partial I^2}=-2\beta_1\) in 
+\(\frac{\partial^2f_1}{\partial I \partial T}=\beta_2-\beta_1\). 
+Torej je \[a=-\beta_1 v_1 w_2(w_1+w_2+(1-\frac{\beta_2}{\beta_1})w_4).\]
+Vektorja \(v\) in \(w\) lahko izberemo tako, da so vse komponente \(w\) pozitivne 
+in \(v_1\) pozitiven. Ker je biološko smiselno, da je \(\beta_2<\beta_1\), je \(a<0\). 
+Torej je DFE \(x_0\) LAS če je \(\R_0\) nekoliko manjši od 1, če pa je \(\R_0\) nekoliko večji od 1,
+je DFE nestabilno, obstaja pa LAS ravnovesje blizu DFE. 
+
+Obstaja pa še nekoliko drugačna variacija tega modela, kjer dodamo 
+nek nov prehod med \(E\) in \(I\) in je torej 
+\(\dot{I}=\nu E -(d+r_2)I +\beta_3 \frac{EI}{N}\) in \(\dot{E}= \beta_1\frac{SI}{N}+\beta_2\frac{TI}{N}-(d+\nu+r_1)E+pr_2I-\beta_3 \frac{EI}{N}\).
+V tem primeru dobimo enako ravnovesje DFE in enak \(\R_0\), za \(a\) pa dobimo 
+\[a=-\beta_1v_1w_2(w_1+w_2+(1-\frac{\beta_2}{\beta_1})w_4)+\beta_3w_1w_2(v_2-v_1).\]
+Pokazati se da, da je \(v_2-v_1>0\). Če je \(\beta_3\) dovolj velik, bo \(a>0\). 
+Torej bo obstajalo nestabilno podkritično ravnovesje blizu DFE. Majhne perturbacije v populaciji 
+torej lahko povzročijo razširjanje bolezni, kljub temu, da je DFE stabilno.
 \end{document}
