@@ -184,7 +184,24 @@ ravnovesnega stanja DFE govori naslednji izrek.
     če velja \(\R_0<1\), in nestabilno, če je \(\R_0>1\), kjer je \(\R_0=\rho(FV^{-1})\).
 \end{izrek}
 
-\todo{dokaz}
+\begin{proof}
+    Označimo \(J_1=F-V\). Po lemi \ref{lema1} je \(V\) nesingularna M-matrika in \(F\) nenegativna. 
+    Sledi, da je \(-J_1\) Z-matrika. 
+    Maksimalni realni del lastnih vrednosti matrike \(J_1\) označimo z \(s(J_1)\). Iz lastnosti 
+    M-matrik in Z-matrik sledi, da je 
+    \[s(J_1)<0 \Leftrightarrow -J_1\textrm{ je nesingularna M-matrika}.\]
+    Ker je \(V\) nesingularna M-matrika, je \(V^{-1}\) nenegativna. Matrika \(F\) je pravtako 
+    nenegativna, zato je tudi \(FV^{-1}\) nenegativna. Sledi, da je \(I-FV^{-1}\) Z-matrika. 
+    Iz nekaterih lastnosti Z-matrik in M-matrik (\todo{vir}) sledi, da je 
+    \[-J_1\textrm{ je nesingularna M-matrika}\Leftrightarrow I-FV^{-1} \textrm{ je nesingularna M-matrika}.\]
+    Ker je \(FV^{-1}\) nenegativna, so vse njene lastne vrednosti manjše ali enake \(\rho(FV^{-1})\). Torej je 
+    \[I-FV^{-1}\textrm{ nesingularna M-matrika}\Leftrightarrow \rho(FV^{-1})<1. \]
+    Od tod dobimo, da je 
+    \[s(J_1)<0 \Leftrightarrow \rho(FV^{-1})=\R_0<1.\]
+    Podobno dobimo, da je \(s(J_1)=0\Leftrightarrow \rho(FV^{-1})=1\)(to je natanko tedaj, ko sta \(-J_1\) in \(I-FV^{-1}\) singularni M-matriki). 
+    Sledi, da je \(s(J_1)>0 \Leftrightarrow \rho(FV^{-1})>1\).
+
+\end{proof}
 
 \section{Podkritična in nadkritična ravnovesna stanja}
 
@@ -220,27 +237,28 @@ lastnimi vektorji, ki pripadajo lastnim vrednostim s pozitivnim realnim delom. L
 realnim delom pripadajo lastni vektorji, ki razpenjajo prostor, ki mu pripada centralna mnogoterost. 
 
 V nadaljevanju bomo potrebovali izrek o centralni mnogoterosti, ki pravi naslednje:
-%\begin{izrek}
-%    Imejmo nelinearni sistem oblike 
-%    \[\dot{x}=Ax+f(x,y)\]
-%    \[\dot{y}=By+g(x,y)\],
-%    kjer \(f(0,0)=g(0,0)=Df(0,0)=Dg(0,0)=0\), \((x,y)\in \mathbb{R}^c\times \mathbb{R}^s\) 
-%    in \(A\) \(c \times c\) matrika z ničelnimi realnimi deli, \(B\) pa matrika z negativnimi realnimi deli, 
-%    ter \(f\) in \(g\) vsaj dvakrat zvezno odvedljivi. Potem obstaja 
-%    centralna mnogoterost 
-%    \[W^c=\{(x,y)|y=h(x), |x|<\delta, h(0)=0, Dh(0)=0\},\]
-%    za katero velja, da je v \((x,y)=(0,0)\) tangentna na prostor \(E^c\), ki ga razpenjajo lastni vektorji ničelnih lastnih vrednosti. 
-%    Dinamika sistema, omejenega na centralno mnogoterost je podana s sistemom 
-%    \(\dot{u}=Au+f(u,h(u))\) za dovolj majhen \(u\in \mathbb{R}^c\).
-%\end{izrek}
-\begin{izrek}
-    Imejmo nelinearni sistem \(\dot{x}=f(x),\textrm{ }x\in\mathbb{R}^n\), naj bo \(f\) gladka 
-    in \(x=0\) stacionarna točka. Naj ima \(Df(0)\) lastne vrednosti s pozitivnimi, negativnimi in 
+
+\begin{izrek}\label{izrekcm}
+    Imejmo nelinearni sistem \(\dot{x}=f(x,\mu),\textrm{ }x\in\mathbb{R}^n\), naj bo \(f\) gladka 
+    in \((x,\mu)=(0,0)\) stacionarna točka. Naj ima \(Df(0,0)\) lastne vrednosti s pozitivnimi, negativnimi in 
     ničelnimi realnimi deli. Pripadajoči lastni vektorji razpenjajo prostore \(E^s\), \(E^u\) in \(E^c\). 
-    Potem obstajata stabilna mnogoterost \(W^s\), enake dimenzije kot \(E^c\) in tangentna na \(E^c\) v \(x=0\) in nestabilna mnogoterost \(W^u\),
-    enake dimenzije kot \(E^u\) in tangentna nanj v \(x=0\), ter invariantna centralna mnogoterost \(W^c\), 
-    tangentna na \(E^c\) v \(x=0\).{}
+    Potem obstajata stabilna mnogoterost \(W^s\), enake dimenzije kot \(E^c\) in tangentna na \(E^c\) v \((x,\mu)=(0,0)\) in nestabilna mnogoterost \(W^u\),
+    enake dimenzije kot \(E^u\) in tangentna nanj v \((x,\mu)=(0,0)\), ter invariantna centralna mnogoterost \(W^c\), 
+    tangentna na \(E^c\) v \((x,\mu)=(0,0)\).
 \end{izrek}
+
+Nelinearni sistem iz izreka se da prepisati na sistem oblike 
+\[\dot{x}=Ax+f_1(x,y,\mu)\]
+\[\dot{y}=By+f_2(x,y,\mu)\],
+\[\dot{\mu}=0\],
+kjer \(f_1(0,0,0)=f_2(0,0,0)=Df_1(0,0,0)=Df_2(0,0,0)=0\), \((x,y)\in \mathbb{R}^c\times \mathbb{R}^s\) 
+in \(A\) \(c \times c\) matrika z ničelnimi realnimi deli, \(B\) pa matrika z negativnimi realnimi deli, 
+ter \(f_1\) in \(f_2\) vsaj dvakrat zvezno odvedljivi. Potem obstaja 
+centralna mnogoterost oblike
+\[W^c=\{(x,y,\mu)|y=h(x,\mu), |x|<\delta, |\mu|<\delta, h(0,0)=0, Dh(0,0)=0\},\]
+za katero velja, da je v \((x,y)=(0,0)\) tangentna na prostor \(E^c\), ki ga razpenjajo lastni vektorji ničelnih lastnih vrednosti. 
+Dinamika sistema, omejenega na centralno mnogoterost je podana s sistemom 
+\(\dot{u}=Au+f_1(u,h(u,\mu),\mu)\) za dovolj majhen \(u\in \mathbb{R}^c\).
 
 Imejmo sedaj matriko \(D_xf(x_0,0)\) (Jacobijeva matrika odvodov po komponentah \(x\)-a). 
 Ker imamo v \((x_0,0)\), bifurkacijo, je \(0\) lastna vrednost te matrike. Naj bo 
@@ -284,7 +302,30 @@ torej o tem, ali imamo superkritična ali subkritična ravnovesja.
     \end{itemize}
 \end{izrek}
 
-\todo{dokaz}
+\begin{proof}
+    Ogledali si bomo idejo dokaza zgornjega izreka. 
+    Po izreku \ref{izrekcm} in \todo{vir} obstaja centralna mnogoterost oblike 
+    \[W^c=\{(x,\mu)|x=x_0+uw+z(u,\mu)\},\]
+    kjer je \(z(u,\mu)\) ortogonalna na \(w\) in drugega reda v \(u\) in \(\mu\). 
+    Ker je \(W^c\) invariantna na sistem \ref{eq4}, velja 
+    \[\dot{u}w+\frac{dz}{dt}=f(x_0+uw+z(u,\mu)).\]
+    Če zgornjo enačbo množimo z \(v\), dobimo 
+    \[\dot{u}=vf(x_0+uw+z(u,\mu)).\]
+    Zgornja enačba določa obnašanje rešitev sistema \ref{eq4} okrog točke bifurkacije. 
+    Razvijemo desno stran enačbe v Taylorjevo vrsto okrog \((x_0,0)\):
+    \begin{align*}
+    \dot{u}=&vf(x_0,0)+vD_{\mu}f(x_0,0)\mu+vD_xf(x_0,0)(uw+z)+\frac{v}{2}D_{\mu\mu}f(x_0,0)\mu^2\\
+    &+vD_{x\mu}f(x_0,0)\mu (uw+z)+\frac{v}{2}D_{xx}f(x_0,0)(uw+z)^2+\mathcal{O}(3)
+    \end{align*}
+    Ker je \(f(x_0,\mu)=0\) za vse \(\mu\) in ker je \(vD_xf(x_0,0)=0\), odpadejo vsi
+    členi z odvodi prvega reda. Ostane nam 
+    \[\dot{u}=au^2 + bu\mu +\mathcal{O}(3),\]
+    kjer sta \(a\) in \(b\) kot v \ref{eq5}. 
+    Pokazati se da, da so neničelne rešitve zgornjega sistema stabilne za \(a<0\) in 
+    nestabilne za \(a>0\). Poleg tega se da videti, da so rešitve sistema \ref{eq4},
+    ki sovpadajo z rešitvami zgornjega sistema, smiselne za \(a<0\) in \(\mu>0\) ali za \(a>0\) in \(\mu<0\).
+
+\end{proof}
 
 \section{Primeri}
 \subsection{Model zdravljenja}
