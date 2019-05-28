@@ -1,0 +1,5 @@
+\babel@toc {slovene}{}
+\beamer@sectionintoc {1}{Uvod}{2}{0}{1}
+\beamer@sectionintoc {2}{Osnovno reprodukcijsko \IeC {\v s}tevilo v razdrobljenih epidemiolo\IeC {\v s}kih problemih}{3}{0}{2}
+\beamer@sectionintoc {3}{Podkriti\IeC {\v c}na in nadkriti\IeC {\v c}na ravnovesna stanja}{11}{0}{3}
+\beamer@sectionintoc {4}{Primeri}{18}{0}{4}

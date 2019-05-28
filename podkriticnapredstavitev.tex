@@ -1,7 +1,7 @@
 \documentclass[11pt]{beamer}
 
 \usetheme{Berlin}
-\usecolortheme{rose}
+\usecolortheme{seahorse}
 
 \usepackage[slovene]{babel}
 \usepackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 \usepackage{subfigure}
 \usepackage{xcolor}
 \usepackage{tcolorbox}
-\usepackage{enumitem}
+%\usepackage{enumitem}
 
 \setbeamercovered{invisible}
 
@@ -25,6 +25,8 @@
 \newcommand{\R}{\mathcal R}
 \newcommand{\F}{\mathcal F}
 \newcommand{\V}{\mathcal V}
+
+\newcommand{\myitem}{\item[\bullet]}
 
 \newtheorem{lema}{Lema}
 \newtheorem{izrek}{Izrek}
@@ -34,10 +36,247 @@
 \author{Katarina Černe}
 
 \begin{document}
+
 \begin{frame}
 \maketitle
 \end{frame}
 
+\section{Uvod}
+\begin{frame}
+\begin{itemize}
+    \item pogosto je eno izmed ravnovesnih stanj ravnovesje brez okužbe (DFE)
+    \item pri analizi si pomagamo z osnovnim reprodukcijskim številom \(\R_0\)
+    \item če je \(\R_0<1\), je DFE LAS
+    \item če je \(\R_0>1\), je DFE nestabilno
+    \item pogoj \(\R_0<1\) ne zagotavlja nujno, da lahko bolezen izkoreninimo
+\end{itemize}
+\end{frame}
 
+\section{Osnovno reprodukcijsko število v razdrobljenih epidemioloških problemih}
+\begin{frame}
+\begin{itemize}
+    \item populacija z \(n\) razredi \(x=(x_1,x_2,\ldots,x_n)^T\), \(x_i\geq 0\)
+    \item prvih \(m\) razredov okuženih, preostali neokuženi
+    \item \(X_s=\{x\geq 0 | x_i=0, i=1,\ldots, m\}\) množica vseh stanj, v katerih
+    ni bolezni
+\end{itemize}
 
+\begin{itemize}
+    \item \(\F_i(x)\) stopnja pojavitve novih okužb v razredu \(i\)
+    \item \(\V^+_i(x)\) stopnja prehoda v \(i\)-ti razred, ki se ne zgodijo zaradi 
+    novih okužb
+    \item \(\V^-_i\) stopnja prehoda iz \(i\)-tega razreda 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+    Model prenosa okužbe:
+    \begin{equation} \label{eq1}
+        \dot{x_i}=f_i(x)=\F_i - \V_i,
+    \end{equation}
+    \(\V_i=\V_i^- - \V_i^+\) in \(i=1,\ldots,n\)\\
+    Linearizacija:
+    \begin{equation} \label{eq2}
+        \dot{x}=Df(x_0)(x-x_0),
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+    Za funkcije \(f_i\) morajo veljati še naslednje predpostavke:
+    \begin{itemize}
+        \item[(A1)] \(x\geq 0 \Rightarrow \F_i\textrm{, }\V_i^+\textrm{, }\V_i^- \geq 0\)
+        \item[(A2)] \(x_i=0 \Rightarrow \V_i^- =0\), kar pomeni, da prehodi iz praznega 
+        razreda niso možni. 
+        \item[(A3)] \(\F_i=0\) za \(i>m\), kar pomeni, da nimamo okužb ve neokuženih razredih - 
+        ko se posameznik okuži, preide v okužen razred 
+        \item[(A4)] \(x\in X_s \Rightarrow \F_i(x)=0\) in \(\V_i^+(x)=0\) za \(i=1,\ldots,m\)
+        To pomeni, da okužba ne pride "od zunaj" temveč samo iz razredov znotraj populacije. 
+        \item[(A5)] \(\F(x)=0 \Rightarrow\) vse lastne vrednosti matrike \(Df(x_0)\) imajo 
+        negativne realne dele, torej, omejimo se na sisteme, kjer je DFE stabilno, če nimamo novih okužb.    
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{lema} \label{lema1}
+        Naj bo \(x_0\) DFE sistema \ref{eq1} in naj funkcije \(f_i\) zadoščajo predpostavlkam
+        (A1)-(A5). Potem sta Jacobijevi matriki za \(\F\) in \(\V\) oblike
+        \begin{align*}
+            D\F(x_0)= 
+            \begin{bmatrix}
+            F & 0 \\
+            0 & 0 \\
+            \end{bmatrix},\textrm{ }
+            D\V(x_0)=
+            \begin{bmatrix}
+            V & 0 \\
+            J_3 & J_4 \\
+            \end{bmatrix},
+        \end{align*}
+        kjer sta \(F\) in \(V\) \(m\times m\) matriki, definirani kot
+        \begin{align*}
+            \big[\frac{\partial \F_i}{\partial x_j}(x_0)\big]_{i,j=1,\ldots m},\textrm{ }
+            \big[\frac{\partial \V_i}{\partial x_j}(x_0)\big]_{i,j=1,\ldots m}.
+        \end{align*}
+        Velja še, da je \(F\) nenegativna, \(V\) je nesingularna M-matrika in vse lastne
+        vrednosti matrike \(J_4\) imajo pozitivne realne dele.
+    \end{lema}
+\end{frame}
+
+%tu povej, kaj je M-matrika
+
+\begin{frame}
+    Osnovno reprodukcijsko število \(\R_0\) v epidemiološkem modelu = pričakovano število novih okužb, ki jih povzroči okuženi osebek v sicer popolnoma
+    dovzetni populaciji
+\end{frame}
+
+\begin{frame}
+    \(\dot{x}=-D\V(x_0)(x-x_0)\)\\
+    \(\Psi_i(0)\) = število okuženih, ki jih v začetku uvedemo v \(i\)-ti razred\\
+    \(\Psi(t)=(\Psi_1(t),\ldots,\Psi_m(t))^T\) število okuženih ob času \(t\)\\
+    \(\Psi(t)\) reši enačbo \(\Psi'(t)=-V\Psi(t)\)\\
+    \(\Psi(t)=e^{-Vt}\Psi(0)\)\\
+
+    Pričakovano število okužb, ki jih ustvarijo okuženi posamezniki = \\
+    \(\int_0^\infty F\Psi(t)dt = \int_0^\infty Fe^{-Vt}\Psi(0)dt = FV^{-1}\Psi(0)\)
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+    \item \((i,j)\)-ti element \(F\): stopnja, s katero okuženi osebki iz razreda \(j\)
+    ustvarijo nove okužbe v razredu \(i\)
+    \item \((j,k)\)-ti element \(V^{-1}\): pričakovani čas, ki ga okuženi posameznik, ki je začel v \(k\)-tem razredu, 
+    preživi v \(j\)-tem razredu v času svojega življenja
+    \item \((i,k)\)-ti element  \(FV^{-1}\): pričakovano število novih okužb, ki jih okuženi posameznik, ki 
+    smo ga na začetki uvedli v \(k\)-ti razred, povzroči v \(i\)-tem razredu
+    \end{itemize}
+    \[\R_0=\rho(FV^{-1})\]
+\end{frame}
+
+\begin{frame}
+    \begin{izrek}\label{izrek1}
+        Imejmo model prenosa bolezni kot v \ref{eq1}, kjer naj za funkcijo \(f\) veljajo
+        predpostavke (A1)-(A5). Če je ravnovesno stanje \(x_0\) DFE, potem je \(x_0\) LAS, 
+        če velja \(\R_0<1\), in nestabilno, če je \(\R_0>1\), kjer je \(\R_0=\rho(FV^{-1})\).
+    \end{izrek}
+\end{frame}
+
+%tu pride primer?
+
+\section{Podkritična in nadkritična ravnovesna stanja}
+
+\begin{frame}
+    Težava v točki bifurkacije, torej če \(\R_0=1\), oziroma v njeni okolici
+
+    Opazujemo sistem 
+    \begin{equation}\label{eq4}
+    \dot{x}=f(x,\mu),
+    \end{equation}
+
+    bifurkacijski parameter \(\mu\): \(\R_0<1\) za \(\mu<0\) in \(\R_0>1\) za \(\mu>0\)\\
+
+    bifurkacija v točki \((x_0,0)\)
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item v okolici točke bifurkacije se lahko pojavijo endemična 
+        ravnovesja: nadkritična ali podkritična
+        \item nadkritična: netrivialna ravnovesja v okolici točke bifurkacije pri \(\R_0>1\)
+        \item podkritična: netrivialna ravnovesja v okolici točke bifurkacije pri \(\R_0<1\)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \(0\) enostavna lastna vrednost matrike \(D_xf(x_0,0)\)\\
+    \(v\) in \(w\) levi in desni lastni vektor, \(vw=1\)\\
+    \begin{equation}\label{eq5}
+        a=\frac{v}{2}D_{xx}f(x_0,0)w^2=\frac{1}{2}\sum_{i,j,k=1}^n v_iw_jw_k\frac{\partial^2f_i}{\partial x_j \partial x_k}(x_0,0)
+        \end{equation}
+        \[b=vD_{x\mu}f(x_0,0)w=\sum_{i,j=1}^n v_i w_j \frac{\partial^2 f_i}{\partial x_j \partial \mu}(x_0,0).\]
+\end{frame}
+
+\begin{frame}
+    \begin{lema}\label{lema2}
+        Naj bo \(f(x,\mu)\) vsaj dvakrat zvezno odvedljiva v 
+        \(x\) in \(\mu\) in naj zanjo veljajo predpostavke (A1)-(A5).
+        Naj bo \(0\) enostavna lastna vrednost \(D_xf(x_0,0)\) in \(v\) in \(w\)
+        vektorja, za katera \(vD_xf(x_0,0)=0\) in \(D_xf(x_0,0)w=0\). 
+        Potem \(v_i\geq 0\) in \(w_i\geq 0\) za \(i=1,\ldots, m\) in 
+        \(v_i=0\) za \(i=m+1,\ldots,n\) ter 
+        \[a=\sum_{i,j,k=1}^m v_i w_j w_k \big(\frac{1}{2}\frac{\partial^2 f_i}{\partial x_j \partial x_k}(x_0,0)+\sum_{l=m+1}^n \alpha_{lk}\frac{\partial^2 f_i}{\partial x_j \partial x_l}(x_0,0)\big),\]
+        kjer \(\alpha_{lk}\) (\(l=m+1,\ldots,n,\textrm{ }k=1,\ldots,m\)) označuje 
+        \((l-m,k)\)-ti element matrike \(-J_4^{-1}J_3\), kjer sta matriki \(J_3\) in \(J_4\)
+        kot v lemi \ref{lema1}.
+    \end{lema}
+\end{frame}
+
+\begin{frame}
+    \begin{izrek}\label{izrek2}
+        Imejmo sistem \ref{eq4}, kjer za \(f\) velja (A1)-(A5). Naj bo \(0\) enostavna
+        lastna vrednost \(D_xf(x_0,0)\). Naj bo \(a\) kot zgoraj in naj velja \(b\neq 0\).
+        Potem obstaja \(\delta >0\), da velja:
+        \begin{itemize}
+            \item če \(a<0\), potem obstajajo lokalno asimptotsko stabilna endemična ravnovesja
+            v bližini \(x_0\) za \(0<\mu <\delta\) (nadkritična ravnovesja)
+            \item če \(a>0\), potem obstajajo nestabilna endemična ravnovesja v bližini \(x_0\) 
+            za \(-\delta < \mu < 0\) (podkritična ravnovesja).
+        \end{itemize}
+    \end{izrek}
+\end{frame}
+
+\begin{frame}
+    \begin{izrek}\label{izrekcm}
+        Imejmo nelinearni sistem \(\dot{x}=f(x,\mu),\textrm{ }x\in\mathbb{R}^n\), naj bo \(f\) gladka 
+        in \((x,\mu)=(0,0)\) stacionarna točka. Naj ima \(Df(0,0)\) lastne vrednosti s pozitivnimi, negativnimi in 
+        ničelnimi realnimi deli. Pripadajoči lastni vektorji razpenjajo prostore \(E^s\), \(E^u\) in \(E^c\). 
+        Potem obstajata stabilna mnogoterost \(W^s\), enake dimenzije kot \(E^c\) in tangentna na \(E^c\) v \((x,\mu)=(0,0)\) in nestabilna mnogoterost \(W^u\),
+        enake dimenzije kot \(E^u\) in tangentna nanj v \((x,\mu)=(0,0)\), ter invariantna centralna mnogoterost \(W^c\), 
+        tangentna na \(E^c\) v \((x,\mu)=(0,0)\).
+    \end{izrek}
+\end{frame}
+
+\begin{frame}
+    \[\dot{x}=Ax+f_1(x,y,\mu)\]
+\[\dot{y}=By+f_2(x,y,\mu)\],
+\[\dot{\mu}=0\],
+kjer \(f_1(0,0,0)=f_2(0,0,0)=Df_1(0,0,0)=Df_2(0,0,0)=0\), \((x,y)\in \mathbb{R}^c\times \mathbb{R}^s\)\\
+\(A\) \(c \times c\) matrika z ničelnimi realnimi deli, \(B\) z negativnimi realnimi deli\\
+obstaja centralna mnogoterost oblike
+\[W^c=\{(x,y,\mu)|y=h(x,\mu), |x|<\delta, |\mu|<\delta, h(0,0)=0, Dh(0,0)=0\},\]
+Dinamika sistema, omejenega na centralno mnogoterost je podana s sistemom 
+\(\dot{u}=Au+f_1(u,h(u,\mu),\mu)\)
+\end{frame}
+
+\section{Primeri}
+\begin{frame}
+    \begin{align*}
+        &\dot{E}=\beta_1\frac{SI}{N}+\beta_2\frac{TI}{N}-(d+\nu+r_1)E+pr_2I,\\
+        &\dot{I}=\nu E -(d+r_2)I,\\
+        &\dot{S}=b(N)-dS-\beta_1\frac{SI}{N},\\
+        &\dot{T}=-dT+r_1E+qr_2I-\beta_2\frac{TI}{N}.
+        \end{align*}
+\end{frame}
+
+\begin{frame}
+    \(\R_0=\rho(FV^{-1})=\frac{\beta_1\nu}{(d+\nu+r_1)(d+r_2)-\nu pr_2}\)
+\end{frame}
+
+\begin{frame}
+    \(h_1=\frac{\nu}{d+\nu+r_1}\) delež osebkov iz \(E\), ki preidejo v \(I\)\\ 
+    \(h_2=\frac{pr_2}{d+r_2}\) delež osebkov iz \(I\), ki preidejo nazaj v \(E\)\\
+    delež \(h_1^{k}h_2^{k-1}\) gre iz \(E\) v \(I\) vsaj \(k\)-krat\\
+    pričakovani čas, ki ga posameznik iz razreda \(E\) preživi v \(I\):
+    \[\frac{1}{d+r_2}(h_1+h_1^2h_2+\cdots)=\frac{1}{d+r_2}\frac{h_1}{1-h_1h_2}=\frac{\nu}{(d+\nu+r_1)(d+r_2)-\nu pr_2}.\]
+\end{frame}
+
+\begin{frame}
+Dogajanje okrog točke bifurkacije:\\
+\(a=-\beta_1 v_1 w_2(w_1+w_2+(1-\frac{\beta_2}{\beta_1})w_4)\)
+\end{frame}
+
+\begin{frame}
+    \(\dot{I}=\nu E -(d+r_2)I +\beta_3 \frac{EI}{N}\)\\
+    \(\dot{E}= \beta_1\frac{SI}{N}+\beta_2\frac{TI}{N}-(d+\nu+r_1)E+pr_2I-\beta_3 \frac{EI}{N}\)\\
+    \(a=-\beta_1v_1w_2(w_1+w_2+(1-\frac{\beta_2}{\beta_1})w_4)+\beta_3w_1w_2(v_2-v_1)\)
+\end{frame}
 \end{document}
